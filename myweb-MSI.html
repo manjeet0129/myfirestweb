@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Personal Portfolio Website</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .hero {
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)
+          ),
+          url("https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+        background-size: cover;
+        background-position: center;
+        position: relative;
+        color: #fff;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 80px;
+        position: absolute;
+        width: 100%;
+        z-index: 1000;
+      }
+
+      .logo {
+        max-height: 50px;
+        border-radius: 50%;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 20px;
+      }
+
+      nav ul li a {
+        color: #fff;
+        position: relative;
+        font-weight: 500;
+        padding: 5px;
+      }
+
+      nav ul li a:hover {
+        color: #fd4766;
+      }
+
+      nav ul li a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: #fd4766;
+        transition: 0.3s;
+        bottom: -2px;
+      }
+
+      nav ul li a:hover::after {
+        width: 100%;
+      }
+
+      .btn {
+        color: #fff;
+        padding: 12px 30px;
+        background: #fd4766;
+        border: none;
+        border-radius: 30px;
+        font-size: 14px;
+        text-transform: uppercase;
+        transition: 0.4s ease-in-out;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background: transparent;
+        border: 2px solid #fd4766;
+      }
+
+      .content {
+        position: absolute;
+        top: 40%;
+        left: 10%;
+        transform: translateY(-50%);
+      }
+
+      .content .title {
+        font-size: 20px;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 20px;
+        background: linear-gradient(
+          120deg,
+          #1c99fe,
+          #7644ff,
+          #fd4766
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .content h1 {
+        font-size: 70px;
+        line-height: 1.2;
+        font-weight: 800;
+      }
+
+      .content p {
+        margin-top: 20px;
+        margin-bottom: 30px;
+        font-size: 16px;
+        color: #ccc;
+        max-width: 600px;
+      }
+
+      .social-icons {
+        margin-top: 30px;
+      }
+
+      .social-icons a {
+        color: #fd4766;
+        font-size: 24px;
+        margin-right: 15px;
+        transition: 0.3s;
+      }
+
+      .social-icons a:hover {
+        color: #fff;
+      }
+
+      .scroll-down {
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 16px;
+        color: #fff;
+        animation: bounce 2s infinite;
+      }
+
+      .scroll-down i {
+        font-size: 24px;
+        margin-left: 10px;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <nav>
+        <img src="https://raw.githubusercontent.com/manjeet0129/manjeet00427/main/_89101973-befd-45b9-8227-bf2ee6cf921b.jpeg"
+  alt="Logo"
+  class="logo" />
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+       <a href="path/to/your/resume.pdf" download="Your_Resume_Name.pdf" class="btn">
+  Resume
+</a>
+      </nav>
+      <div class="content">
+        <span class="title">Freelance Web Developer</span>
+        <h1>
+          Hello, I'm <span style="color: #fd4766">ROHAN</span>
+        </h1>
+        <p>
+          I specialize in creating professional, responsive, and modern web
+          applications with cutting-edge technologies.
+        </p>
+     <!-- Download CV Button -->
+<a href=""C:\Users\yadav\OneDrive\Desktop\CDS\CDS_Mathematics-MM.pdf"" download="Rohan_CV.pdf" class="btn">
+  Download CV
+</a>
+
+    <div class="social-icons">
+  <a href="https://www.instagram.com/manjeet_0129/?hl=en" target="_blank">
+    <i class="fab fa-instagram"></i>
+  </a>
+  <a href="https://www.facebook.com/profile.php?id=100053891445536" target="_blank">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+  <!--<a href="https://twitter.com/yourusername" target="_blank">  -->
+    <!--<i class="fab fa-twitter"></i>  -->
+<!--  </a>  -->
+  <!--<a href="https://www.linkedin.com/in/yourusername" target="_blank"> -->
+ <!--   <i class="fab fa-linkedin-in"></i> -->
+ <!-- </a> -->
+  <!--<a href="https://github.com/manjeet0129/projects.git" target="_blank"> -->
+    <!--<i class="fab fa-github"></i>  -->
+  <!--</a>  -->
+
+  <a href="https://youtube.com/@mrmanjeetkumaryadav2339?si=lS_lspTWz_zEP1gM" target="_blank">
+    <i class="fab fa-youtube"></i>
+  </a>
+</div>
+    </div>
+      <a href="buttoneffect-MSI.html" class="scroll-down">
+  Scroll Down <i class="fas fa-arrow-down"></i>
+</a>
+   </div>
+ <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

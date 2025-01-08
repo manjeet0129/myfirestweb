@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Good Morning Wish </title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 1s ease, color 0.5s ease;
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .greeting {
+            font-family: 'Great Vibes', cursive;
+            font-size: 4rem;
+            color: white;
+            margin-top: 50px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            animation: slideIn 2s ease;
+        }
+
+        .subtext {
+            font-size: 1.4rem;
+            color: white;
+            margin: 20px 0;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s ease;
+        }
+
+        .dynamic-button {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 20px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(45deg, #ff7e5f, #feb47b);
+            color: white;
+            box-shadow: 0 8px 15px rgba(255, 105, 135, 0.6);
+        }
+
+        .dynamic-button:hover {
+            background: linear-gradient(45deg, #feb47b, #ff7e5f);
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(255, 105, 135, 0.8);
+        }
+
+        /* Night Scene */
+        .night {
+            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .stars {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #f7e7b9; /* Light golden color */
+            border-radius: 50%;
+            animation: twinkling 3s infinite alternate, moveStars 10s linear infinite;
+        }
+
+        @keyframes twinkling {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes moveStars {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(1000px) translateY(1000px); }
+        }
+
+        .moon {
+            position: absolute;
+            top: 40%;
+            left: 70%;
+            width: 100px;
+            height: 100px;
+            background: #f7e7b9; /* Light golden color */
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 235, 185, 0.6);
+        }
+
+        /* Morning Scene */
+        .morning {
+            background-image: url('https://img.freepik.com/premium-photo/lonely-tree-field-sunset-time_361360-3669.jpg?w=740');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+        }
+
+        /* Modal styles */
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #ff99cc; /* Pink color */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            display: none;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .modal h2 {
+            font-size: 2.8rem;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .modal p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #fff;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .close-btn {
+            padding: 12px 25px;
+            background: #f53d3d;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #e03232;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: none;
+            z-index: 999;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="night">
+    <div class="container">
+        <div class="greeting">Good Night,Rohan!</div>
+        <div class="subtext">Sleep tight under the twinkling stars!</div>
+        <div class="moon"></div>
+        <div id="stars"></div>
+        <button class="dynamic-button" onclick="switchScene()">Switch to Morning</button>
+    </div>
+
+    <!-- Modal for Good Morning Wishes -->
+    <div class="overlay" id="overlay"></div>
+    <div class="modal" id="modal">
+        <h2>Good Morning,Rohan!</h2>
+        <p>Wishing you a beautiful day filled with smiles and warmth. </p>
+        <button class="close-btn" onclick="closeModal()">Close</button>
+    </div>
+
+    <script>
+        let isNight = true;
+
+        function createStars() {
+            const starContainer = document.getElementById('stars');
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.classList.add('stars');
+                star.style.top = Math.random() * 100 + '%';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.animationDuration = Math.random() * 2 + 3 + 's'; // Random speed for stars
+                starContainer.appendChild(star);
+            }
+        }
+
+        function switchScene() {
+            const body = document.body;
+            const greeting = document.querySelector('.greeting');
+            const subtext = document.querySelector('.subtext');
+            const moon = document.querySelector('.moon');
+            const button = document.querySelector('.dynamic-button');
+            const starContainer = document.getElementById('stars');
+
+            if (isNight) {
+                // Switch to Morning
+                body.classList.remove('night');
+                body.classList.add('morning');
+                greeting.textContent = 'Good Morning,Rohan!';
+                subtext.textContent = 'Wishing you a bright and sunny day!';
+                moon.style.display = 'none';
+                starContainer.innerHTML = '';
+                button.textContent = 'Tap here';
+
+                // Set button to "Tap here"
+                button.setAttribute('onclick', 'openModal()');
+            } else {
+                // Switch back to Night Scene
+                body.classList.remove('morning');
+                body.classList.add('night');
+                greeting.textContent = 'Good Night,Rohan!';
+                subtext.textContent = 'Sleep tight under the twinkling stars!';
+                moon.style.display = 'block';
+                createStars();
+                button.textContent = 'Switch to Morning';
+                button.setAttribute('onclick', 'switchScene()');
+            }
+
+            isNight = !isNight;
+        }
+
+        function openModal() {
+            // Show modal for Good Morning Wish
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            // Close the modal and remove overlay
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Initialize stars for night scene
+        createStars();
+    </script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy New Year Fireworks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: black;
+            background-color: #000;
+            overflow: hidden;
+            font-family: 'Verdana', sans-serif;
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        #tapButton {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px 40px;
+            font-size: 20px;
+            background: linear-gradient(135deg, #ff5722, #ff9800);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.1s ease;
+        }
+        #tapButton:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        #message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+            color: #fff;
+            text-align: center;
+            opacity: 0;
+        }
+        #container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: rgba(0, 0, 0, 0.9);
+            opacity: 0;
+            transition: opacity 1s ease, transform 1s ease;
+            transform: scale(0.9);
+        }
+        #container.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        #container h1 {
+            font-size: 60px;
+            color: #ffd700;
+            margin: 20px;
+            text-shadow: 0 0 20px #ffd700, 0 0 30px #ff4500;
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px #ffd700, 0 0 30px #ff4500;
+            }
+            to {
+                text-shadow: 0 0 30px #ffa500, 0 0 40px #ff6347;
+            }
+        }
+        #container p {
+            font-size: 24px;
+            color: #fff;
+            text-align: center;
+            margin-top: 10px;
+            animation: fadeIn 2s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        #buttonContainer {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .actionButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #ff4500;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        .actionButton:hover {
+            background-color: #ff6347;
+        }
+ @keyframes glow {
+            from {
+                text-shadow: 0 0 20px #ffd700, 0 0 30px #ff4500;
+            }
+            to {
+                text-shadow: 0 0 30px #ffa500, 0 0 40px #ff6347;
+            }
+        }
+        #container p {
+            font-size: 24px;
+            color: #fff;
+            text-align: center;
+            margin-top: 10px;
+            animation: fadeIn 2s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        #insta-link {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background-color: #E1306C;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: background-color 0.3s ease;
+            z-index: 100; /* To make sure it's above other elements */
+        }
+
+        #insta-link:hover {
+            background-color: #b52a5d;
+        }
+        #insta-link i {
+            font-size: 18px;
+        }
+
+    </style>
+</head>
+<body>
+
+<button id="tapButton">Tap Here</button>
+<canvas id="c"></canvas>
+<div id="message"></div>
+<div id="container">
+    <h1 id="mainHeading">Happy New Year 2025</h1>
+<h1>Rohan</h1>
+    <p id="personalMessage"></p>
+    <div id="buttonContainer">
+        <button class="actionButton" onclick="showPersonalMessage('Rohan, you are amazing!')">Message 1</button>
+        <button class="actionButton" onclick="showPersonalMessage('Wishing you all the success!')">Message 2</button>
+        <button class="actionButton" onclick="showPersonalMessage('Celebrate life, love, and joy!')">Message 3</button>
+    </div>
+</div>
+
+<script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let fireworks = [];
+
+    function backgroundFireworks() {
+        fireworks.push(createFirework(Math.random() * canvas.width, Math.random() * canvas.height));
+        updateFireworks();
+    }
+
+    function createFirework(x, y) {
+        let particles = [];
+        let hue = Math.random() * 360;
+        for (let i = 0; i < 50; i++) {
+            particles.push({
+                x: x,
+                y: y,
+                speed: Math.random() * 3 + 1,
+                direction: Math.random() * Math.PI * 2,
+                size: Math.random() * 2 + 1,
+                hue: hue,
+                life: 0,
+                maxLife: 80
+            });
+        }
+        return particles;
+    }
+
+    function updateFireworks() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        fireworks.forEach((particles, index) => {
+            particles.forEach((particle, i) => {
+                particle.x += Math.cos(particle.direction) * particle.speed;
+                particle.y += Math.sin(particle.direction) * particle.speed;
+                particle.life++;
+                ctx.fillStyle = `hsla(${particle.hue}, 100%, 50%, ${(1 - particle.life / particle.maxLife).toFixed(2)})`;
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fill();
+                if (particle.life > particle.maxLife) {
+                    particles.splice(i, 1);
+                }
+            });
+            if (particles.length === 0) {
+                fireworks.splice(index, 1);
+            }
+        });
+        requestAnimationFrame(updateFireworks);
+    }
+
+    setInterval(backgroundFireworks, 500);
+
+    document.getElementById('tapButton').addEventListener('click', () => {
+        document.getElementById('tapButton').style.display = 'none';
+        showText();
+    });
+
+    function showText() {
+        const message = "Happy New Year 2025, Rohan!";
+        const messageElement = document.getElementById('message');
+        let index = 0;
+        messageElement.style.opacity = 1;
+
+        function typeText() {
+            if (index < message.length) {
+                messageElement.innerHTML += message.charAt(index);
+                index++;
+                setTimeout(typeText, 100);
+            } else {
+                setTimeout(() => {
+                    document.getElementById('message').style.opacity = 0;
+                    showContainer();
+                }, 1000);
+            }
+        }
+
+        typeText();
+    }
+
+    function showContainer() {
+        const container = document.getElementById('container');
+        container.classList.add('visible');
+    }
+
+    function showPersonalMessage(message) {
+        document.getElementById('personalMessage').innerText = message;
+    }
+</script>
+</script>
+<a id="insta-link" class="meta-link" href="https://stopify.co/PD9HZB" target="_blank">
+    <i class="fab fa-instagram"></i>
+    <span>Follow me on Instagram</span>
+</a>
+
+</body>
+</html>
